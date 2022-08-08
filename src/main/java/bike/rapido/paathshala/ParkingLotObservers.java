@@ -1,5 +1,10 @@
 package bike.rapido.paathshala;
 
 public interface ParkingLotObservers {
-       public boolean notifying();
+       public void notifyingForFullSlot();
+       public void notifyForFreeSlot();
+
+       public void notifyParkingLotIsFull();
+
+       public void notifyParkingLotIsBackAvailable();
 }

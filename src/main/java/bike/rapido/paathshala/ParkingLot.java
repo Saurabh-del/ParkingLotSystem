@@ -6,40 +6,52 @@ import java.util.List;
 
 public class ParkingLot {
 
+    HashSet<Vehicle> vehicles = new HashSet<>();
     int parkingLotSize;
+    int parkingLotNumber;
+
     private List<ParkingLotObservers> observers = new ArrayList<>();
 
-    ParkingLot(int parkingLotSize){
+    ParkingLot(int parkingLotSize, int parkingLotNumber){
         this.parkingLotSize = parkingLotSize;
+        this.parkingLotNumber=parkingLotNumber;
     }
 
     public void register(ParkingLotObservers observer) {
         observers.add(observer);
     }
 
-    public void notifyUpdate() {
+    public void notifyForFullUpdate() {
         for(ParkingLotObservers observer: observers) {
-            observer.notifying();
+            observer.notifyParkingLotIsFull();
+        }
+    }
+
+    public void notifyForFreeSlotUpdate() {
+        for(ParkingLotObservers observer: observers) {
+            observer.notifyParkingLotIsBackAvailable();
         }
     }
 
 
-    HashSet<Vehicle> vehicles = new HashSet<>();
     public Boolean park(Vehicle vehicle) {
         if(checkIfParked(vehicle) || checkIfParkingLotFull())
             return false;
 
         vehicles.add(vehicle);
-        if(checkIfParkingLotFull())
-        {
-            notifyUpdate();
+        if(checkIfParkingLotFull()) {
+            notifyForFullUpdate();
         }
+
         return true;
     }
 
 
-    public Boolean unpark(Vehicle vehicle) {
+    public Boolean unPark(Vehicle vehicle) {
         if(checkIfParked(vehicle)) {
+            if(checkIfParkingLotFull()){
+                notifyForFreeSlotUpdate();
+            }
             vehicles.remove(vehicle);
             return true;
         }
