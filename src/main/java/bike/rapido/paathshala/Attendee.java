@@ -5,11 +5,16 @@ import java.util.*;
 public class Attendee {
     private ArrayList<ParkingLot> parkingLotList = new ArrayList<>();
     private HashMap<Vehicle, Integer> map = new HashMap<Vehicle, Integer>();
-    private String typeOfParking;
+    private Strategy strategy;
 
-//    public Attendee(String typeOfParking) {
-//        this.typeOfParking=typeOfParking;
-//    }
+
+    public Attendee(){
+        this.strategy=null;
+    }
+    public Attendee(Strategy strategy) {
+        this.strategy=strategy;
+    }
+
 
     public void assignParkingLot(ParkingLot parkingLot) {
         parkingLotList.add(parkingLot);
@@ -20,29 +25,56 @@ public class Attendee {
             return false;
         }
 
-        int maximumSpace=0;
-        ParkingLot maximumSpaceParkingLot = null;
-        for (ParkingLot parkingLot : parkingLotList) {
-            int size = parkingLot.parkingLotSize;
-            int spaceOccupied = (parkingLot.vehicles).size();
-
-            if(size - spaceOccupied > maximumSpace)
+        if(strategy == null)
+        {
+            for(ParkingLot parkingLot:parkingLotList)
             {
-                maximumSpace = size - spaceOccupied;
-                maximumSpaceParkingLot = parkingLot;
+                if(!parkingLot.checkIfParkingLotFull()) {
+                    parkingLot.park(car);
+                    map.put(car, parkingLot.parkingLotNumber);
+                    return true;
+                }
             }
+            return false;
         }
 
-        if (maximumSpace != 0) {
-            maximumSpaceParkingLot.park(car);
-            map.put(car, maximumSpaceParkingLot.parkingLotNumber);
+
+        ParkingLot parkingLotToParkCar=strategy.parkTheCarUsingStrategy();
+        if(parkingLotToParkCar.checkIfParkingLotFull())
+            return false;
+
+        if(parkingLotToParkCar != null){
+            parkingLotToParkCar.park(car);
+            map.put(car, parkingLotToParkCar.parkingLotNumber);
             return true;
         }
+
+//        int maximumSpace=0;
+//        ParkingLot maximumSpaceParkingLot = null;
+//        for (ParkingLot parkingLot : parkingLotList) {
+//            int size = parkingLot.parkingLotSize;
+//            int spaceOccupied = (parkingLot.vehicles).size();
+//
+//            if(size - spaceOccupied > maximumSpace)
+//            {
+//                maximumSpace = size - spaceOccupied;
+//                maximumSpaceParkingLot = parkingLot;
+//            }
+//        }
+
+//        if (maximumSpace != 0) {
+//            maximumSpaceParkingLot.park(car);
+//            map.put(car, maximumSpaceParkingLot.parkingLotNumber);
+//            return true;
+//        }
 
         return false;
     }
 
     public Boolean unParkCar(Vehicle car) {
+        if(!map.containsKey(car)){
+            return false;
+        }
         for (ParkingLot parkingLot : parkingLotList) {
             Boolean result = parkingLot.unPark(car);
 
