@@ -40,35 +40,14 @@ public class Attendee {
 
 
         ParkingLot parkingLotToParkCar=strategy.parkTheCarUsingStrategy();
-        if(parkingLotToParkCar.checkIfParkingLotFull())
+        if(parkingLotToParkCar == null || parkingLotToParkCar.checkIfParkingLotFull())
             return false;
 
-        if(parkingLotToParkCar != null){
-            parkingLotToParkCar.park(car);
-            map.put(car, parkingLotToParkCar.parkingLotNumber);
-            return true;
-        }
+        parkingLotToParkCar.park(car);
+        map.put(car, parkingLotToParkCar.parkingLotNumber);
+        return true;
 
-//        int maximumSpace=0;
-//        ParkingLot maximumSpaceParkingLot = null;
-//        for (ParkingLot parkingLot : parkingLotList) {
-//            int size = parkingLot.parkingLotSize;
-//            int spaceOccupied = (parkingLot.vehicles).size();
 //
-//            if(size - spaceOccupied > maximumSpace)
-//            {
-//                maximumSpace = size - spaceOccupied;
-//                maximumSpaceParkingLot = parkingLot;
-//            }
-//        }
-
-//        if (maximumSpace != 0) {
-//            maximumSpaceParkingLot.park(car);
-//            map.put(car, maximumSpaceParkingLot.parkingLotNumber);
-//            return true;
-//        }
-
-        return false;
     }
 
     public Boolean unParkCar(Vehicle car) {
