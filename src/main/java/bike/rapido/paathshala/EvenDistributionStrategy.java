@@ -21,6 +21,8 @@ public class EvenDistributionStrategy implements Strategy{
       }
 
     private double getFilledPercentage(ParkingLot parkingLot) {
-        return (float)((parkingLot.numberOfcarAlreadyPark()/ parkingLot.parkingLotSize))*100;
+
+        return (double)((parkingLot.numberOfCarAlreadyPark() * 100 * 1.0)/ parkingLot.parkingLotSize);
+
     }
 }

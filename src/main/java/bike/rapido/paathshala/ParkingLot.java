@@ -68,7 +68,7 @@ public class ParkingLot {
         return false;
     }
 
-    public int numberOfcarAlreadyPark(){
+    public int numberOfCarAlreadyPark(){
         return vehicles.size();
     }
 

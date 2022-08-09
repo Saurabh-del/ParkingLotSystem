@@ -40,16 +40,17 @@ public class Attendee {
 
 
         ParkingLot parkingLotToParkCar=strategy.parkTheCarUsingStrategy();
-        if(parkingLotToParkCar.checkIfParkingLotFull()){
+
+        if(parkingLotToParkCar == null || parkingLotToParkCar.checkIfParkingLotFull()){
             return false;
         }
 
-        if(parkingLotToParkCar != null){
-            parkingLotToParkCar.park(car);
-            map.put(car, parkingLotToParkCar.parkingLotNumber);
-            return true;
-        }
-        return false;
+
+        parkingLotToParkCar.park(car);
+        map.put(car, parkingLotToParkCar.parkingLotNumber);
+        return true;
+
+
     }
 
     public Boolean unParkCar(Vehicle car) {
