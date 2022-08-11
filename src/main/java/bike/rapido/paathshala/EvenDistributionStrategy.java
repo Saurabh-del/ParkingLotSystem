@@ -12,17 +12,24 @@ public class EvenDistributionStrategy implements Strategy{
 
     @Override
     public ParkingLot parkTheCarUsingStrategy() {
-        double minfilledPercentage=Integer.MAX_VALUE;
-        ParkingLot expectedParkingLot=parkingLots.get(0);
-      for(ParkingLot parkingLot:parkingLots){
-             System.out.println(getFilledPercentage(parkingLot));
-          }
-        return expectedParkingLot;
+        ParkingLot parkingLotToPark = null;
+        double minimumSpaceInParkingLot = Double.MAX_VALUE;
+
+        for(ParkingLot parkingLot:parkingLots) {
+            double filledPercentage = getFilledPercentage(parkingLot);
+
+            if (filledPercentage < minimumSpaceInParkingLot) {
+                minimumSpaceInParkingLot = filledPercentage;
+                parkingLotToPark = parkingLot;
+            }
+
+        }
+        return parkingLotToPark;
       }
 
     private double getFilledPercentage(ParkingLot parkingLot) {
 
-        return (double)((parkingLot.numberOfCarAlreadyPark() * 100 * 1.0)/ parkingLot.parkingLotSize);
+        return ((parkingLot.numberOfCarAlreadyPark() * 100 * 1.0)/ parkingLot.parkingLotSize);
 
     }
 }
