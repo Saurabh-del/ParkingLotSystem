@@ -18,7 +18,7 @@ public class AttendeeTest {
         ParkingLot firstParkingLot = new ParkingLot(3, 1);
         ParkingLot secondParkingLot = new ParkingLot(3, 2);
         ParkingLot thirdParkingLot = new ParkingLot(3, 3);
-        Vehicle car=new Vehicle();
+        Vehicle car = new Vehicle();
 
         attendee.assignParkingLot(firstParkingLot);
         attendee.assignParkingLot(secondParkingLot);
@@ -51,7 +51,7 @@ public class AttendeeTest {
         Vehicle secondCar = new Vehicle();
         Vehicle thirdCar = new Vehicle();
         Vehicle forthCar = new Vehicle();
-        Vehicle fifthCar=new Vehicle();
+        Vehicle fifthCar = new Vehicle();
 
         ParkingLot firstParkingLot = new ParkingLot(1, 1);
         ParkingLot secondParkingLot = new ParkingLot(2, 2);
@@ -63,7 +63,6 @@ public class AttendeeTest {
         attendee.parkCar(secondCar);
         attendee.parkCar(thirdCar);
         attendee.parkCar(forthCar);
-
 
 
         Boolean result = attendee.parkCar(fifthCar);
@@ -100,75 +99,4 @@ public class AttendeeTest {
         assertFalse(result);
     }
 
-//    @Test
-//    void shouldParkCarInEvenlyDistributedManner(){
-//        Vehicle firstCar = new Vehicle();
-//        Vehicle secondCar = new Vehicle();
-//        Vehicle thirdCar = new Vehicle();
-//        Vehicle forthCar = new Vehicle();
-//        Vehicle fifthCar = new Vehicle();
-//
-//        ParkingLot firstParkingLot = new ParkingLot(2, 1);
-//        ParkingLot secondParkingLot = new ParkingLot(2, 2);
-//        ParkingLot thirdParkingLot = new ParkingLot(2, 3);
-//
-//        attendee.assignParkingLot(firstParkingLot);
-//        attendee.assignParkingLot(secondParkingLot);
-//        attendee.assignParkingLot(thirdParkingLot);
-//
-//        attendee.parkCar(firstCar);
-//        attendee.parkCar(secondCar);
-//        attendee.parkCar(thirdCar);
-//        attendee.parkCar(forthCar);
-//        attendee.parkCar(fifthCar);
-//
-//        int firstCarParkId = attendee.getParkId(firstCar);
-//        int secondCarParkId = attendee.getParkId(secondCar);
-//        int thirdCarParkId = attendee.getParkId(thirdCar);
-//        int fourthCarParkId = attendee.getParkId(forthCar);
-//        int fifthCarParkId = attendee.getParkId(fifthCar);
-//
-//
-//        assertEquals(1, firstCarParkId);
-//        assertEquals(2, secondCarParkId);
-//        assertEquals(3, thirdCarParkId);
-//        assertEquals(1, fourthCarParkId);
-//        assertEquals(2, fifthCarParkId);
-//
-//    }
-//
-//    @Test
-//    void shouldParkCarInEvenlyDistributedMannerEvenAfterUnParkingCar() {
-//        Vehicle firstCar = new Vehicle();
-//        Vehicle secondCar = new Vehicle();
-//        Vehicle thirdCar = new Vehicle();
-//        Vehicle forthCar = new Vehicle();
-//        Vehicle fifthCar = new Vehicle();
-//
-//        ParkingLot firstParkingLot = new ParkingLot(2, 1);
-//        ParkingLot secondParkingLot = new ParkingLot(2, 2);
-//        ParkingLot thirdParkingLot = new ParkingLot(2, 3);
-//
-//        attendee.assignParkingLot(firstParkingLot);
-//        attendee.assignParkingLot(secondParkingLot);
-//        attendee.assignParkingLot(thirdParkingLot);
-//
-//        attendee.parkCar(firstCar);
-//        attendee.parkCar(secondCar);
-//        attendee.parkCar(thirdCar);
-//        attendee.unParkCar(thirdCar);
-//        attendee.parkCar(forthCar);
-//        attendee.unParkCar(forthCar);
-//        attendee.parkCar(fifthCar);
-//
-//        int firstCarParkId = attendee.getParkId(firstCar);
-//        int secondCarParkId = attendee.getParkId(secondCar);
-//        int fifthCarParkId = attendee.getParkId(fifthCar);
-//
-//
-//        assertEquals(1, firstCarParkId);
-//        assertEquals(2, secondCarParkId);
-//        assertEquals(3, fifthCarParkId);
-//
-//    }
 }

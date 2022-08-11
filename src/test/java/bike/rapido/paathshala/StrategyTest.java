@@ -148,9 +148,54 @@ public class StrategyTest {
         assertEquals(1, thirdCarParkId);
         assertEquals(2, fourthCarParkId);
         assertEquals(2, fifthCarParkId);
-     }        
-        
-        
+     }
+
+
+    @Test
+    void shouldParkCarInFillUpStrategyEvenAfterUnparkingWhenParkingLotSizesAreUnEqual() {
+        ParkingLot firstParkingLot = new ParkingLot(1, 1);
+        ParkingLot secondParkingLot = new ParkingLot(1, 2);
+        ParkingLot thirdParkingLot = new ParkingLot(3, 3);
+
+        ArrayList<ParkingLot> parkingLotsList=new ArrayList<>();
+        parkingLotsList.add(firstParkingLot);
+        parkingLotsList.add(secondParkingLot);
+        parkingLotsList.add(thirdParkingLot);
+
+        FillUpFirstStrategy fillUpFirstStrategy=new FillUpFirstStrategy(parkingLotsList);
+        Attendee attendee=new Attendee(fillUpFirstStrategy);
+
+        attendee.assignParkingLot(firstParkingLot);
+        attendee.assignParkingLot(secondParkingLot);
+        attendee.assignParkingLot(thirdParkingLot);
+
+
+        Vehicle firstCar = new Vehicle();
+        Vehicle secondCar = new Vehicle();
+        Vehicle thirdCar = new Vehicle();
+        Vehicle forthCar = new Vehicle();
+        Vehicle fifthCar = new Vehicle();
+
+        attendee.parkCar(firstCar);
+        attendee.parkCar(secondCar);
+        attendee.unParkCar(secondCar);
+        attendee.parkCar(thirdCar);
+        attendee.parkCar(forthCar);
+        attendee.parkCar(fifthCar);
+
+        int firstCarParkId = attendee.getParkId(firstCar);
+        int thirdCarParkId = attendee.getParkId(thirdCar);
+        int fourthCarParkId = attendee.getParkId(forthCar);
+        int fifthCarParkId = attendee.getParkId(fifthCar);
+
+
+        assertEquals(1, firstCarParkId);
+        assertEquals(2, thirdCarParkId);
+        assertEquals(3, fourthCarParkId);
+        assertEquals(3, fifthCarParkId);
+    }
+
+
     @Test
     void shouldParkCarInEvenDistributedMannerEvenAfterUnParking() {
         ParkingLot firstParkingLot = new ParkingLot(2, 1);
@@ -195,5 +240,52 @@ public class StrategyTest {
         assertEquals(3, fifthCarParkId);
 
     }
+
+    @Test
+    void shouldParkCarInEvenDistributedMannerEvenAfterUnParkingWhenParkingLotSizesAreNotEqual() {
+        ParkingLot firstParkingLot = new ParkingLot(1, 1);
+        ParkingLot secondParkingLot = new ParkingLot(2, 2);
+        ParkingLot thirdParkingLot = new ParkingLot(3, 3);
+
+
+        ArrayList<ParkingLot> parkingLotsList = new ArrayList<>();
+        parkingLotsList.add(firstParkingLot);
+        parkingLotsList.add(secondParkingLot);
+        parkingLotsList.add(thirdParkingLot);
+        EvenDistributionStrategy evenDistributionStrategy = new EvenDistributionStrategy(parkingLotsList);
+        Attendee attendee = new Attendee(evenDistributionStrategy);
+
+        attendee.assignParkingLot(firstParkingLot);
+        attendee.assignParkingLot(secondParkingLot);
+        attendee.assignParkingLot(thirdParkingLot);
+
+
+        Vehicle firstCar = new Vehicle();
+        Vehicle secondCar = new Vehicle();
+        Vehicle thirdCar = new Vehicle();
+        Vehicle forthCar = new Vehicle();
+        Vehicle fifthCar = new Vehicle();
+
+
+        attendee.parkCar(firstCar);
+        attendee.parkCar(secondCar);
+        attendee.unParkCar(secondCar);
+        attendee.parkCar(thirdCar);
+        attendee.parkCar(forthCar);
+        attendee.parkCar(fifthCar);
+
+        int firstCarParkId = attendee.getParkId(firstCar);
+        int thirdCarParkId = attendee.getParkId(thirdCar);
+        int forthCarParkId = attendee.getParkId(forthCar);
+        int fifthCarParkId = attendee.getParkId(fifthCar);
+
+
+        assertEquals(1, firstCarParkId);
+        assertEquals(2, thirdCarParkId);
+        assertEquals(3, forthCarParkId);
+        assertEquals(3, fifthCarParkId);
+
+    }
+
 
 }
